@@ -35,34 +35,33 @@ ExampleElectronMVAid::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     beginEvent(); //create the vectors
     
     ///load the collections:
-    edm::Handle<reco::GsfElectronCollection> electronsCollection;
+    edm::Handle<vector<pat::Electron>> electronsCollection;
     iEvent.getByLabel(electronsCollection_ , electronsCollection);
     
-    edm::Handle<edm::ValueMap<float> >  mapMVAcollection;
-    iEvent.getByLabel(MVAidCollection_ , mapMVAcollection);
-    const edm::ValueMap<float> & mapMVA = *mapMVAcollection;
+    const vector<pat::Electron> * theElectrons = electronsCollection.product();
     
     
     T_Event_RunNumber = iEvent.id().run();
     T_Event_EventNumber = iEvent.id().event();
     T_Event_LuminosityBlock = iEvent.id().luminosityBlock();
     
-    cout << "hello" << endl;
     
-    unsigned int i = 0;
-    for(reco::GsfElectronCollection::const_iterator eleIt = electronsCollection->begin(); eleIt != electronsCollection->end(); eleIt++){
+    
+    unsigned int nbElectron =  theElectrons->size();
+    
+    for(unsigned i = 0 ; i < nbElectron; i++){
 
-        T_Elec_Eta->push_back(eleIt->eta());
-        T_Elec_Phi->push_back(eleIt->phi());
-        T_Elec_Px->push_back(eleIt->px());
-        T_Elec_Py->push_back(eleIt->py());
-        T_Elec_Pz->push_back(eleIt->pz());
-        T_Elec_Pt->push_back(eleIt->pt());
-        T_Elec_Energy->push_back(eleIt->energy());
-        T_Elec_Charge->push_back(eleIt->charge());
+        T_Elec_Eta->push_back((theElectrons->at(i)).eta());
+        T_Elec_Phi->push_back((theElectrons->at(i)).phi());
+        T_Elec_Px->push_back((theElectrons->at(i)).px());
+        T_Elec_Py->push_back((theElectrons->at(i)).py());
+        T_Elec_Pz->push_back((theElectrons->at(i)).pz());
+        T_Elec_Pt->push_back((theElectrons->at(i)).pt());
+        T_Elec_Energy->push_back((theElectrons->at(i)).energy());
+        T_Elec_Charge->push_back((theElectrons->at(i)).charge());
         
-        edm::Ref<reco::GsfElectronCollection> electronRef(electronsCollection,i); i++; //reference to the electron
-        T_Elec_MVAoutput->push_back(mapMVA[electronRef]);
+        T_Elec_MVAoutput->push_back((theElectrons->at(i)).electronID("trigMVAid"));
+
     }
     
     mytree_->Fill();

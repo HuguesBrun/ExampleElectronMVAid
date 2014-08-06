@@ -34,6 +34,8 @@
 
 #include "DataFormats/Common/interface/ValueMap.h"
 
+#include "DataFormats/PatCandidates/interface/Electron.h"
+
 #include "TH1D.h"
 #include <map>
 #include "TFile.h"
