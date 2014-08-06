@@ -36,6 +36,8 @@
 
 #include "DataFormats/PatCandidates/interface/Electron.h"
 
+#include "EgammaAnalysis/ElectronTools/interface/EGammaMvaEleEstimatorCSA14.h"
+
 #include "TH1D.h"
 #include <map>
 #include "TFile.h"
@@ -79,7 +81,7 @@ class ExampleElectronMVAid : public edm::EDAnalyzer {
         std::string outputFile_; // output file
         
         
-
+       EGammaMvaEleEstimatorCSA14* myMVATrig;
         
         
         // ---------- output ROOT file

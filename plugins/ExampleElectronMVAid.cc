@@ -9,6 +9,23 @@ ExampleElectronMVAid::ExampleElectronMVAid(const edm::ParameterSet& iConfig)
     MVAidCollection_      = iConfig.getParameter<edm::InputTag>("MVAId");
     outputFile_   = iConfig.getParameter<std::string>("outputFile");
     rootFile_ = TFile::Open(outputFile_.c_str(),"RECREATE");
+    
+    std::vector<std::string> myManualCatWeigths;
+    myManualCatWeigths.push_back("EgammaAnalysis/ElectronTools/data/CSA14/TrigIDMVA_EB_BDT.weights.xml");
+    myManualCatWeigths.push_back("EgammaAnalysis/ElectronTools/data/CSA14/TrigIDMVA_EE_BDT.weights.xml");
+    
+    vector<string> myManualCatWeigthsTrig;
+    string the_path;
+    for (unsigned i  = 0 ; i < myManualCatWeigths.size() ; i++){
+        the_path = edm::FileInPath ( myManualCatWeigths[i] ).fullPath();
+        myManualCatWeigthsTrig.push_back(the_path);
+    }
+    
+    myMVATrig = new EGammaMvaEleEstimatorCSA14();
+    myMVATrig->initialize("BDT",
+                          EGammaMvaEleEstimatorCSA14::kTrig,
+                          true,
+                          myManualCatWeigthsTrig);
 }
 
 
@@ -60,7 +77,8 @@ ExampleElectronMVAid::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         T_Elec_Energy->push_back((theElectrons->at(i)).energy());
         T_Elec_Charge->push_back((theElectrons->at(i)).charge());
         
-        T_Elec_MVAoutput->push_back((theElectrons->at(i)).electronID("trigMVAid"));
+        T_Elec_MVAoutput->push_back( myMVATrig->mvaValue(theElectrons->at(i),false));
+        
 
     }
     
