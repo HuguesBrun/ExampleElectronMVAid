@@ -42,6 +42,6 @@ process.exampleAnalyzer = cms.EDAnalyzer('ExampleElectronMVAid',
 
 
 process.load("EgammaAnalysis.ElectronTools.electronIdMVAProducer_CSA14_cfi")
-process.p = cms.Path(process.mvaNonTrigV0CSA14+process.exampleAnalyzer)
+process.p = cms.Path(process.mvaTrigV0CSA14+process.exampleAnalyzer)
 
-process.outpath = cms.EndPath(process.out)
+#process.outpath = cms.EndPath(process.out)
