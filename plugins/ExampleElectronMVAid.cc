@@ -11,8 +11,8 @@ ExampleElectronMVAid::ExampleElectronMVAid(const edm::ParameterSet& iConfig)
     rootFile_ = TFile::Open(outputFile_.c_str(),"RECREATE");
     
     std::vector<std::string> myManualCatWeigths;
-    myManualCatWeigths.push_back("EgammaAnalysis/ElectronTools/data/CSA14/TrigIDMVA_EB_BDT.weights.xml");
-    myManualCatWeigths.push_back("EgammaAnalysis/ElectronTools/data/CSA14/TrigIDMVA_EE_BDT.weights.xml");
+    myManualCatWeigths.push_back("EgammaAnalysis/ElectronTools/data/CSA14/TrigIDMVA_50ns_EB_BDT.weights.xml");
+    myManualCatWeigths.push_back("EgammaAnalysis/ElectronTools/data/CSA14/TrigIDMVA_50ns_EE_BDT.weights.xml");
     
     vector<string> myManualCatWeigthsTrig;
     string the_path;
