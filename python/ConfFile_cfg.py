@@ -32,7 +32,7 @@ process.out = cms.OutputModule("PoolOutputModule",
 
 process.exampleAnalyzer = cms.EDAnalyzer('ExampleElectronMVAid',
             electronsCollection       	= cms.InputTag("gedGsfElectrons","","RECO"),
-            MVAId                       = cms.InputTag("mvaTrigV0CSA14","","addMVAid"),
+            MVAId                       = cms.InputTag("mvaTrigV050nsCSA14","","addMVAid"),
             outputFile		        = cms.string("ElecMVAtree.root")
                                                             )
 
@@ -42,6 +42,6 @@ process.exampleAnalyzer = cms.EDAnalyzer('ExampleElectronMVAid',
 
 
 process.load("EgammaAnalysis.ElectronTools.electronIdMVAProducer_CSA14_cfi")
-process.p = cms.Path(process.mvaTrigV0CSA14+process.exampleAnalyzer)
+process.p = cms.Path(process.mvaTrigV050nsCSA14+process.exampleAnalyzer)
 
 #process.outpath = cms.EndPath(process.out)
