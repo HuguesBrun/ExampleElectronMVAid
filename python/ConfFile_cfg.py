@@ -16,7 +16,7 @@ process.source = cms.Source("PoolSource",
 
 process.exampleAnalyzer = cms.EDAnalyzer('ExampleElectronMVAid',
                                          electronsCollection       	= cms.InputTag("slimmedElectrons","","PAT"),
-                                         MVAId                       = cms.InputTag("mvaTrigV0CSA14","","addMVAid"), #not used when running on PAT
+                                         MVAId                       = cms.InputTag("mvaTrigV050nsCSA14","","addMVAid"), #not used when running on PAT
                                          outputFile		        = cms.string("ElecMVAtree.root")
                                          )
 
