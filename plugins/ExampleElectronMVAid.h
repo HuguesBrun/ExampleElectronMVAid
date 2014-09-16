@@ -73,6 +73,7 @@ class ExampleElectronMVAid : public edm::EDAnalyzer {
       // ----------member data ---------------------------
     edm::InputTag electronsCollection_;
     edm::InputTag MVAidCollection_;
+    edm::InputTag TrigMapCollection_;
     
         std::string outputFile_; // output file
         
@@ -100,7 +101,8 @@ class ExampleElectronMVAid : public edm::EDAnalyzer {
         std::vector<float> *T_Elec_Pt;
         std::vector<float> *T_Elec_Energy;
         std::vector<int> *T_Elec_Charge;
-        std::vector<float> *T_Elec_MVAoutput;
+    std::vector<float> *T_Elec_MVAoutput;
+    std::vector<int> *T_Elec_IsTriggering;
 
 };
 

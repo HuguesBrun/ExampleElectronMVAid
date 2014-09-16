@@ -7,6 +7,7 @@ ExampleElectronMVAid::ExampleElectronMVAid(const edm::ParameterSet& iConfig)
 {
     electronsCollection_      = iConfig.getParameter<edm::InputTag>("electronsCollection");
     MVAidCollection_      = iConfig.getParameter<edm::InputTag>("MVAId");
+    TrigMapCollection_      = iConfig.getParameter<edm::InputTag>("trigMap");
     outputFile_   = iConfig.getParameter<std::string>("outputFile");
     rootFile_ = TFile::Open(outputFile_.c_str(),"RECREATE");
 }
@@ -43,6 +44,12 @@ ExampleElectronMVAid::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     const edm::ValueMap<float> & mapMVA = *mapMVAcollection;
     
     
+    edm::Handle<edm::ValueMap<bool> >  mapTrigIdcollection;
+    iEvent.getByLabel(TrigMapCollection_ , mapTrigIdcollection);
+    const edm::ValueMap<bool> & mapTrigElec = *mapTrigIdcollection;
+
+    
+    
     T_Event_RunNumber = iEvent.id().run();
     T_Event_EventNumber = iEvent.id().event();
     T_Event_LuminosityBlock = iEvent.id().luminosityBlock();
@@ -63,6 +70,9 @@ ExampleElectronMVAid::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         
         edm::Ref<reco::GsfElectronCollection> electronRef(electronsCollection,i); i++; //reference to the electron
         T_Elec_MVAoutput->push_back(mapMVA[electronRef]);
+        
+        T_Elec_IsTriggering->push_back(mapTrigElec[electronRef]);
+
     }
     
     mytree_->Fill();
@@ -90,6 +100,7 @@ ExampleElectronMVAid::beginJob()
     mytree_->Branch("T_Elec_Energy", "std::vector<float>", &T_Elec_Energy);
     mytree_->Branch("T_Elec_Charge", "std::vector<int>", &T_Elec_Charge);
     mytree_->Branch("T_Elec_MVAoutput", "std::vector<float>", &T_Elec_MVAoutput);
+    mytree_->Branch("T_Elec_IsTriggering", "std::vector<int>", &T_Elec_IsTriggering);
 
 
 
@@ -118,6 +129,7 @@ ExampleElectronMVAid::beginEvent()
     T_Elec_Energy = new std::vector<float>;
     T_Elec_Charge = new std::vector<int>;
     T_Elec_MVAoutput = new std::vector<float>;
+    T_Elec_IsTriggering = new std::vector<int>;
     
 }
 
@@ -133,6 +145,7 @@ ExampleElectronMVAid::endEvent()
     delete T_Elec_Energy;
     delete T_Elec_Charge;
     delete T_Elec_MVAoutput;
+    delete T_Elec_IsTriggering;
     
 }
 
