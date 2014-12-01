@@ -54,7 +54,6 @@ ExampleElectronMVAid::analyze(const edm::Event& iEvent, const edm::EventSetup& i
     T_Event_EventNumber = iEvent.id().event();
     T_Event_LuminosityBlock = iEvent.id().luminosityBlock();
     
-    cout << "hello" << endl;
     
     unsigned int i = 0;
     for(reco::GsfElectronCollection::const_iterator eleIt = electronsCollection->begin(); eleIt != electronsCollection->end(); eleIt++){
@@ -71,7 +70,7 @@ ExampleElectronMVAid::analyze(const edm::Event& iEvent, const edm::EventSetup& i
         edm::Ref<reco::GsfElectronCollection> electronRef(electronsCollection,i); i++; //reference to the electron
         T_Elec_MVAoutput->push_back(mapMVA[electronRef]);
         
-        T_Elec_IsTriggering->push_back(mapTrigElec[electronRef]);
+       T_Elec_IsTriggering->push_back(mapTrigElec[electronRef]);
 
     }
     
