@@ -10,7 +10,7 @@ process.source = cms.Source("PoolSource",
     # replace 'myfile.root' with the source file you want to use
     fileNames = cms.untracked.vstring(
                                       #the mini-AOD file with the MVA
-                                      'file:/afs/cern.ch/user/h/hbrun/CMSSW_7_0_6_patch3_miniAOD/src/miniAOD-prod_PAT.root'
+                                      '/store/mc/Phys14DR/DYJetsToLL_M-50_13TeV-madgraph-pythia8/MINIAODSIM/PU4bx50_PHYS14_25_V1-v1/00000/080957A7-C36E-E411-A5BC-00266CF327C4.root'
     )
 )
 
